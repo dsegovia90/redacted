@@ -1,0 +1,93 @@
+```zsh
+### GO FROM THIS ❌
+
+console.log(userPrivateInfo)
+{
+  id: "1234567890",
+  email: "user@example.com",
+  name: "John Doe",
+  address: "123 Main St",
+  phone: "555-555-5555",
+  public_thing: "public value"
+}
+
+### TO THIS ✅
+console.log(userPrivateInfo)
+{
+  id: Redacted {},
+  email: Redacted {},
+  name: Redacted {},
+  address: Redacted {},
+  phone: Redacted {},
+  public_thing: "public value",
+  public_thing2: "public value2"
+}
+```
+
+# Inspiration
+Heavily inspired by rust [secrecy crate](https://crates.io/crates/secrecy).
+
+# Usage
+
+## JavaScript
+```js
+const userData = {
+  privateData: Redacted("user@example.com")
+}
+
+console.log(userData.privateData) // outputs: Redacted {}
+
+// Access private fields explicitly with:
+const privateData = userData.privateData.exposeSecret();
+```
+
+## TypeScript
+```ts
+interface UserData {
+  privateData: Redacted<string>;
+}
+
+const userData = {
+  privateData: Redacted("user@example.com")
+}
+
+console.log(userData.privateData) // outputs: Redacted {}
+
+// Access private fields explicitly with:
+const privateData = userData.privateData.exposeSecret();
+```
+
+## With Zod
+
+Note that fields that not meet the zod schema will fail on `parse()`.
+```ts
+import { z } from "zod";
+import { zodRedactedV3 } from "@dsegovia/redacted";
+
+const userSchema = z.object({
+  id: zodRedactedV3(z.string().uuid()),
+  email: zodRedactedV3(z.string().email()),
+  name: zodRedactedV3(z.string().min(2).max(100)),
+  address: zodRedactedV3(z.string().min(5).max(200)),
+  phone: zodRedactedV3(z.string().min(10).max(20)),
+  public_thing: z.string().min(1).max(100),
+  public_thing2: z.string().min(1).max(100),
+});
+
+const json = { // This can come from a file or API response
+  id: "1234567890",
+  email: "user@example.com",
+  name: "John Doe",
+  address: "123 Main St",
+  phone: "555-555-5555",
+  public_thing: "public value",
+  public_thing2: "public value2"
+}
+
+const parsed = userSchema.parse(json);
+parsed.id.exposeSecret(); // explicitly access the secret value
+
+// or
+
+const safeParsed = userSchema.safeParse(json);
+```
