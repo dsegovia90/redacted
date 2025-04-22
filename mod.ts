@@ -7,6 +7,27 @@ interface Properties {
   redactedOnJsonStringify?: boolean;
 }
 
+/**
+ * MutableRedacted is a class that wraps a value and provides methods to mutate and expose the value.
+ * It can be used to safely expose sensitive data without exposing the entire object.
+ *
+ * @param data - The data to be redacted.
+ * @param properties - Optional properties to configure the behavior of the redacted object.
+ *
+ * @example
+ * const mutableRedacted = new MutableRedacted("secret");
+ * console.log(mutableRedacted.exposeSecret()); // "secret"
+ * mutableRedacted.mutateSecret("newSecret");
+ * console.log(mutableRedacted.exposeSecret()); // "newSecret"
+ *
+ * @example
+ * const mutableRedacted = new MutableRedacted("secret", { redactedOnJsonStringify: false });
+ * console.log(JSON.stringify(mutableRedacted)); // "secret"
+ *
+ * @example
+ * const mutableRedacted = new MutableRedacted("secret"); // <-- secure by default!
+ * console.log(JSON.stringify(mutableRedacted)); // "{}"
+ */
 export class MutableRedacted<T> {
   #data: T;
   #jsonStringifySafe: boolean;
@@ -32,6 +53,26 @@ export class MutableRedacted<T> {
   }
 }
 
+/**
+ * Redacted is a class that wraps a value and provides methods to expose the value.
+ * It can be used to safely expose sensitive data without exposing the entire object.
+ *
+ * @param data - The data to be redacted.
+ * @param properties - Optional properties to configure the behavior of the redacted object.
+ *
+ * @example
+ * const redactedValue = new Redacted("secret");
+ * console.log(redactedValue)
+ * console.log(redactedValue.exposeSecret()); // "secret"
+ *
+ * @example
+ * const redactedValue = new Redacted("secret", { redactedOnJsonStringify: false });
+ * console.log(JSON.stringify(redactedValue)); // "secret"
+ *
+ * @example
+ * const redactedValue = new Redacted("secret"); // <-- secure by default!
+ * console.log(JSON.stringify(redactedValue)); // "{}"
+ */
 export class Redacted<T> {
   #data: T;
   #jsonStringifySafe: boolean;
