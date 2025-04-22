@@ -24,7 +24,7 @@ export class MutableRedacted<T> {
     this.#data = newData;
   }
 
-  toJSON() {
+  toJSON(): T | typeof this {
     if (this.#jsonStringifySafe) {
       return this;
     }
@@ -45,7 +45,7 @@ export class Redacted<T> {
     return this.#data;
   }
 
-  toJSON() {
+  toJSON(): T | typeof this {
     if (this.#jsonStringifySafe) {
       return this;
     }
