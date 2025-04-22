@@ -1,0 +1,15 @@
+{
+  "name": "redacted-node-test-npm",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@dsegovia90/redacted": "^0.0.3"
+  }
+}
