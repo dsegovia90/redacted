@@ -1,12 +1,8 @@
 import { assertEquals, assertThrows } from "@std/assert";
 import { assertNotEquals } from "@std/assert/not-equals";
 import { z } from "zod";
-import {
-  MutableRedacted,
-  mutableRedactedZod,
-  Redacted,
-  redactedZod,
-} from "../mod.ts";
+import { MutableRedacted, Redacted } from "../mod.ts";
+import { mutableRedactedZodV3, redactedZodV3 } from "../zod-v3.ts";
 
 const SECRET_EMAIL = "secret.email@example.com";
 
@@ -63,8 +59,8 @@ Deno.test(function redactedZodTypedTest() {
   };
 
   const schema = z.object({
-    email: redactedZod(z.string().email()),
-    secretAge: redactedZod(z.number().min(1).max(100)),
+    email: redactedZodV3(z.string().email()),
+    secretAge: redactedZodV3(z.number().min(1).max(100)),
     name: z.string().min(2).max(100),
   });
 
@@ -82,8 +78,8 @@ Deno.test(function redactedZodTypedFailTest() {
   };
 
   const schema = z.object({
-    email: redactedZod(z.string().email()),
-    secretAge: redactedZod(z.number().min(1).max(100)),
+    email: redactedZodV3(z.string().email()),
+    secretAge: redactedZodV3(z.number().min(1).max(100)),
     name: z.string().min(2).max(100),
   });
 
@@ -97,7 +93,7 @@ Deno.test(function mutableRedactedZodTest() {
   };
 
   const schema = z.object({
-    email: mutableRedactedZod(z.string().email()),
+    email: mutableRedactedZodV3(z.string().email()),
     name: z.string().min(2).max(100),
   });
 

@@ -1,5 +1,3 @@
-import type { z } from "zod";
-
 export class Redacted<T> {
   #data: T;
   constructor(data: T) {
@@ -27,16 +25,4 @@ export class MutableRedacted<T> {
   }
 }
 
-export const redactedZod = <T>(zodType: z.ZodType<T>) => {
-  return zodType.transform<Redacted<T>>((value) => {
-    zodType.parse(value);
-    return new Redacted(value);
-  });
-};
-
-export const mutableRedactedZod = <T>(zodType: z.ZodType<T>) => {
-  return zodType.transform<MutableRedacted<T>>((value) => {
-    zodType.parse(value);
-    return new MutableRedacted(value);
-  });
-};
+export * from "./zod-v3.ts";
