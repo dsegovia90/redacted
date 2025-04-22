@@ -1,4 +1,4 @@
-interface Properties {
+export interface Properties {
   /**
    * [redactedOnJsonStringify = true] - Whether the data should be
    * safe to stringify with JSON.stringify(), use with care since a lot of loggers
