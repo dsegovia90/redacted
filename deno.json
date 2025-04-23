@@ -1,6 +1,6 @@
 {
   "name": "@dsegovia/redacted",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "exports": "./mod.ts",
   "license": "MIT",
   "tasks": {
@@ -10,5 +10,12 @@
     "@deno/dnt": "jsr:@deno/dnt@^0.41.3",
     "@std/assert": "jsr:@std/assert@^1.0.12",
     "zod": "npm:zod@^3.24.3"
-  }
+  },
+  "keywords": [
+    "redaction",
+    "sensitive data",
+    "logging",
+    "serialization",
+    "secrecy"
+  ]
 }

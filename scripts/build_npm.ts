@@ -24,6 +24,7 @@ await build({
     bugs: {
       url: "https://github.com/dsegovia90/redacted/issues",
     },
+    keywords: denoJson.keywords,
   },
   postBuild() {
     // steps to run after building and before running the tests
