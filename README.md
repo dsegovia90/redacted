@@ -77,7 +77,7 @@ const privateData = userData.privateData.exposeSecret();
 
 ## With Zod
 
-Note that fields that not meet the zod schema will fail on `parse()`.
+Note that fields that not meet the zod schema, will fail on `parse()`.
 
 ```ts
 import { z } from "zod";
