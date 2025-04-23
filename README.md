@@ -1,3 +1,18 @@
+<p align="center">
+    <a href="https://github.com/dsegovia90/redacted">
+        <img src="https://img.shields.io/badge/github-%23121011.svg?logo=github&logoColor=white" alt="Version" />
+    </a>
+    <a href="https://www.npmjs.com/package/@dsegovia90/redacted">
+        <img src="https://img.shields.io/npm/v/%40dsegovia90%2Fredacted?logo=npm&labelColor=CB3837&color=gray" alt="Version" />
+    </a>
+    <a href="https://jsr.io/@dsegovia/redacted">
+        <img src="https://jsr.io/badges/@dsegovia/redacted">
+    </a>
+    <a href="https://bundlephobia.com/package/@dsegovia90/redacted">
+        <img src="https://badgen.net/bundlephobia/min/@dsegovia90/redacted">
+    </a>
+</p>
+
 ```zsh
 ### GO FROM THIS ❌
 
@@ -25,33 +40,36 @@ console.log(userPrivateInfo)
 ```
 
 # Inspiration
+
 Heavily inspired by rust [secrecy crate](https://crates.io/crates/secrecy).
 
 # Usage
 
 ## JavaScript
+
 ```js
 const userData = {
-  privateData: Redacted("user@example.com")
-}
+  privateData: Redacted("user@example.com"),
+};
 
-console.log(userData.privateData) // outputs: Redacted {}
+console.log(userData.privateData); // outputs: Redacted {}
 
 // Access private fields explicitly with:
 const privateData = userData.privateData.exposeSecret();
 ```
 
 ## TypeScript
+
 ```ts
 interface UserData {
   privateData: Redacted<string>;
 }
 
 const userData = {
-  privateData: Redacted("user@example.com")
-}
+  privateData: Redacted("user@example.com"),
+};
 
-console.log(userData.privateData) // outputs: Redacted {}
+console.log(userData.privateData); // outputs: Redacted {}
 
 // Access private fields explicitly with:
 const privateData = userData.privateData.exposeSecret();
@@ -60,6 +78,7 @@ const privateData = userData.privateData.exposeSecret();
 ## With Zod
 
 Note that fields that not meet the zod schema will fail on `parse()`.
+
 ```ts
 import { z } from "zod";
 import { redactedZodV3 } from "@dsegovia/redacted";
@@ -81,8 +100,8 @@ const json = { // This can come from a file or API response
   address: "123 Main St",
   phone: "555-555-5555",
   public_thing: "public value",
-  public_thing2: "public value2"
-}
+  public_thing2: "public value2",
+};
 
 const parsed = userSchema.parse(json);
 parsed.id.exposeSecret(); // explicitly access the secret value
