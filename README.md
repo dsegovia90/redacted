@@ -62,14 +62,14 @@ const privateData = userData.privateData.exposeSecret();
 Note that fields that not meet the zod schema will fail on `parse()`.
 ```ts
 import { z } from "zod";
-import { zodRedactedV3 } from "@dsegovia/redacted";
+import { redactedZodV3 } from "@dsegovia/redacted";
 
 const userSchema = z.object({
-  id: zodRedactedV3(z.string().uuid()),
-  email: zodRedactedV3(z.string().email()),
-  name: zodRedactedV3(z.string().min(2).max(100)),
-  address: zodRedactedV3(z.string().min(5).max(200)),
-  phone: zodRedactedV3(z.string().min(10).max(20)),
+  id: redactedZodV3(z.string().uuid()),
+  email: redactedZodV3(z.string().email()),
+  name: redactedZodV3(z.string().min(2).max(100)),
+  address: redactedZodV3(z.string().min(5).max(200)),
+  phone: redactedZodV3(z.string().min(10).max(20)),
   public_thing: z.string().min(1).max(100),
   public_thing2: z.string().min(1).max(100),
 });
